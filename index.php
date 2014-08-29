@@ -17,6 +17,8 @@
 
   <script src="assets/app.min.js"></script>
 
+  <script src="mail_script.js"></script>
+
 </head>
 <body>
   <!--[if lt IE 8]>
