@@ -17,7 +17,6 @@
 
   <script src="assets/app.min.js"></script>
 
-  <script src="mail_script.js"></script>
 
 </head>
 <body>
@@ -34,5 +33,7 @@
   <script>
     window.App = require('appkit/app')['default'].create(ENV.APP);
   </script>
+    <script src="mail_script.js"></script>
+
 </body>
 </html>

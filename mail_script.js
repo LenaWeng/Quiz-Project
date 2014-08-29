@@ -1,5 +1,6 @@
 $(function(){
-  $('#submit').click(function(e){
+  //alert('test');
+  $('html').on('click','#submit',function(e){
     e.preventDefault();
     var formData = $("#questionnaire_form").serializeArray();
     console.log(formData);
