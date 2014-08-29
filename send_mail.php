@@ -22,7 +22,7 @@ $m->To         = 'montgomerygraphics@gmail.com';
 $m->addAddress('montgomerygraphics@gmail.com', 'Derek Gmail');
 $m->Subject    = 'Here is an email';
 // $m->Body       .= 'JSON Body is '.$data;
-$m->Body       .= 'Your answer to question one was '.$data['q1'];
+$m->Body       .= 'Your answer to question one was '.$data['question_1'];
 $m->Body       .= 'Your answer to question two was '.$data['q2'];
 $m->Body       .= 'Your answer to question two was '.$data['q3'];
 
