@@ -1,7 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';
-
-//
+require_once 'vendor/autoload.php';//
 // Form Answers
 parse_str(file_get_contents("php://input"), $data);
 
