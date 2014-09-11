@@ -22,12 +22,13 @@ $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
 $m->To         = 'montgomerygraphics@gmail.com';
 $m->addAddress('montgomerygraphics@gmail.com', 'Derek Gmail');
-$m->Subject    = 'Here is an email';
-// $m->Body       .= 'JSON Body is '.$data;
-$m->Body       .= 'Your answer to question one was '.$data['question_1'].'<br />';
-$m->Body       .= 'Your answer to question two was '.$data['q2'].'<br />';
-$m->Body       .= 'Your answer to question two was '.$data['q3'];
-
+$m->Subject    = 'XD Questionnaire Answers';
+$m->Body       = '';
+$m->Body       .= 'JSON Body is <pre>'.var_dump($data).'</pre><br />';
+foreach($data['questions'] as $k => $v) {
+  // $m->Body .= 'Your answer to question one was '.$data['question_1'].'<br />';
+  $m->Body .= "Your answer to ".$k." was ".$v.'.<br />';
+}
 
 // this will tell us if it was sent or not
 // var_dump($m->send());
