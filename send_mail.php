@@ -36,8 +36,25 @@ if(!$m->Send()){
   echo "Message sent!";
 }
 
+session_start();
+// store session data
 
+$endTime = date("H:i:s");
+$_SESSION['endTime']=$endTime;
+
+$time1 = strtotime($_SESSION['startTime']);
+
+$time2 = strtotime($_SESSION['endTime']);
+
+$time3 = ($time2 - $time1)/60;
 
 ?>
+
+<p>Start Time - <?php echo date('H:i:s', $time1); ?> </p>
+<p>End Time - <?php echo date('H:i:s', $time2); ?> </p>
+
+<p>Time Taken - <?php echo round($time3); ?> minute(s)</p>
+
+
 
 

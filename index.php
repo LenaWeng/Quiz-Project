@@ -1,3 +1,12 @@
+<?php
+session_start();
+// store session data
+
+$startTime = date("H:i:s");
+$_SESSION['startTime']=$startTime;
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
