@@ -1,7 +1,8 @@
 $(function(){
-  //alert('test');
-  $('html').on('click','#submit',function(e){
-    //e.preventDefault();
+  $('body').on('click','#submit',function(e){
+
+    e.preventDefault();
+   //  alert('test');
     var formData = $("#questionnaire_form").serializeArray();
     console.log(formData);
     $.post("send_mail.php", formData)
@@ -15,4 +16,5 @@ $(function(){
       .always(function(data){
       })
   });
+
 });

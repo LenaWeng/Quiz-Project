@@ -44,6 +44,7 @@ $_SESSION['startTime']=$startTime;
   </script>
 
 
+  <script src="mail_script.js"></script>
 
 
 
