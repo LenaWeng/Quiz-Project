@@ -18,8 +18,8 @@ $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
-$m->To         = 'montgomerygraphics@gmail.com';
-$m->addAddress('montgomerygraphics@gmail.com', 'Derek Gmail');
+$m->To         = 'harish2rock@gmail.com';
+$m->addAddress('harish2rock@gmail.com', 'Harish Gmail');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
 $m->Body       .= 'JSON Body is <pre>'.var_dump($data).'</pre><br />';
@@ -35,3 +35,9 @@ if(!$m->Send()){
 } else {
   echo "Message sent!";
 }
+
+
+
+?>
+
+

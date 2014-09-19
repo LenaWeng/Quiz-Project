@@ -33,7 +33,6 @@
   <script>
     window.App = require('appkit/app')['default'].create(ENV.APP);
   </script>
-    <script src="mail_script.js"></script>
 
 
 
