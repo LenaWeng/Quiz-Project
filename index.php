@@ -26,6 +26,8 @@ $_SESSION['startTime']=$startTime;
 
   <script src="assets/app.min.js"></script>
 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/additional-methods.js"></script>
 
 </head>
 <body>
@@ -44,7 +46,6 @@ $_SESSION['startTime']=$startTime;
   </script>
 
 
-  <script src="mail_script.js"></script>
 
 
 
