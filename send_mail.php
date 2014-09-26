@@ -25,7 +25,7 @@ $m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
 $m->Body       .= 'Quiz Taker: '.$data['name'].'<br />';
-$m->Body       .= 'Contact Email: '.$data['emailid'].'<br /><hr /><br />';
+$m->Body       .= 'Contact Email: '.$data['email'].'<br /><hr /><br />';
 
 // foreach($data['questions'] as $k => $q) {
 //   $m->Body .= $k.': '.$q.'.<br />';
@@ -33,11 +33,15 @@ $m->Body       .= 'Contact Email: '.$data['emailid'].'<br /><hr /><br />';
 //   // $m->Body .= 'Answer:'.$k.' was '.$v.'.<br /><br />';
 // }
 $num_questions = count($data['questions']);
-$m->Body      .= 'Num questions: '.$num_questions.'<br />';
+// $m->Body      .= 'Num questions: '.$num_questions.'<br />';
 
 for ($i=0; $i < $num_questions; $i++) {
-  $m->Body .= 'Question: '.$data['questions'][i+1];
-  $m->Body .= 'Question: '.$data['answers'][i+1];
+  $m->Body .= '<b>Question '.($i+1).':</b> ';
+  $m->Body .= $data['questions']['question_'.($i+1)];
+  $m->Body .= '<br />';
+  $m->Body .= '<b>Answer:</b> ';
+  $m->Body .= $data['answers']['answer_'.($i+1)];
+  $m->Body .= '<br /><br />';
 }
 
 // this will tell us if it was sent or not
