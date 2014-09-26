@@ -1,5 +1,5 @@
 <?php
-require_once 'vendor/autoload.php';//
+require_once 'vendor/PHPMailer/PHPMailerAutoload.php';//
 // Form Answers
 parse_str(file_get_contents("php://input"), $data);
 
@@ -18,11 +18,13 @@ $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
-$m->To         = 'harish2rock@gmail.com';
-$m->addAddress('harish2rock@gmail.com', 'Harish Gmail');
+$m->To         = 'derek.montgomery@perficient.com';
+$m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
+$m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
+$m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
-$m->Body       .= 'JSON Body is <pre>'.var_dump($data).'</pre><br />';
+// $m->Body       .= 'JSON Body is <pre>'.var_dump($data).'</pre><br />';
 foreach($data['questions'] as $k => $v) {
   // $m->Body .= 'Your answer to question one was '.$data['question_1'].'<br />';
   $m->Body .= "Your answer to ".$k." was ".$v.'.<br />';
