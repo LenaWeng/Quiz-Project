@@ -20,14 +20,24 @@ $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
 $m->To         = 'derek.montgomery@perficient.com';
 $m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
-$m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
-$m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
+// $m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
+// $m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
-// $m->Body       .= 'JSON Body is <pre>'.var_dump($data).'</pre><br />';
-foreach($data['questions'] as $k => $v) {
-  // $m->Body .= 'Your answer to question one was '.$data['question_1'].'<br />';
-  $m->Body .= "Your answer to ".$k." was ".$v.'.<br />';
+$m->Body       .= 'Quiz Taker: '.$data['name'].'<br />';
+$m->Body       .= 'Contact Email: '.$data['emailid'].'<br /><hr /><br />';
+
+// foreach($data['questions'] as $k => $q) {
+//   $m->Body .= $k.': '.$q.'.<br />';
+//   $m->Body .= 'Answer: '.$data['answers'].'<br />';
+//   // $m->Body .= 'Answer:'.$k.' was '.$v.'.<br /><br />';
+// }
+$num_questions = count($data['questions']);
+$m->Body      .= 'Num questions: '.$num_questions.'<br />';
+
+for ($i=0; $i < $num_questions; $i++) {
+  $m->Body .= 'Question: '.$data['questions'][i+1];
+  $m->Body .= 'Question: '.$data['answers'][i+1];
 }
 
 // this will tell us if it was sent or not
