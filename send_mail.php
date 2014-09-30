@@ -1,5 +1,16 @@
 <?php
 require_once 'vendor/PHPMailer/PHPMailerAutoload.php';//
+
+// Timer
+session_start();
+$endTime = date("H:i:s");
+$_SESSION['endTime']=$endTime;
+$time1 = strtotime($_SESSION['startTime']);
+$time2 = strtotime($_SESSION['endTime']);
+$time3 = ($time2 - $time1)/60;
+
+
+
 // Form Answers
 parse_str(file_get_contents("php://input"), $data);
 
@@ -13,7 +24,6 @@ $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
 $m->SMTPSecure = 'ssl';
 $m->Port       = 465;
-
 $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
@@ -24,8 +34,12 @@ $m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
 // $m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
-$m->Body       .= 'Quiz Taker: '.$data['name'].'<br />';
-$m->Body       .= 'Contact Email: '.$data['email'].'<br /><hr /><br />';
+$m->Body      .= 'Quiz Taker: '.$data['name'].'<br />';
+$m->Body      .= 'Contact Email: '.$data['email'].'<br />';
+$m->Body      .= 'Start Time - '.date('H:i:s', $time1).'<br />';
+$m->Body      .= 'End Time - '.date('H:i:s', $time2).'<br />';
+$m->Body      .= 'Time Taken - '.round($time3).' minute(s)<hr /><br />';
+
 
 // foreach($data['questions'] as $k => $q) {
 //   $m->Body .= $k.': '.$q.'.<br />';
@@ -52,25 +66,4 @@ if(!$m->Send()){
   echo "Message sent!";
 }
 
-session_start();
-// store session data
-
-$endTime = date("H:i:s");
-$_SESSION['endTime']=$endTime;
-
-$time1 = strtotime($_SESSION['startTime']);
-
-$time2 = strtotime($_SESSION['endTime']);
-
-$time3 = ($time2 - $time1)/60;
-
 ?>
-
-<p>Start Time - <?php echo date('H:i:s', $time1); ?> </p>
-<p>End Time - <?php echo date('H:i:s', $time2); ?> </p>
-
-<p>Time Taken - <?php echo round($time3); ?> minute(s)</p>
-
-
-
-
