@@ -62,6 +62,16 @@ for ($i=0; $i < $num_questions; $i++) {
 // var_dump($m->send());
 if(!$m->Send()){
   echo "Mailer error: " . $m->ErrorInfo;
+
+  $host = "smtp.gmail.com";
+  $port = "587";
+  $checkconn = fsockopen($host, $port, $errno, $errstr, 5);
+  if(!$checkconn){
+    echo "($errno) $errstr";
+  } else {
+    echo 'ok';
+  }
+
 } else {
   echo "Message sent!";
 }
