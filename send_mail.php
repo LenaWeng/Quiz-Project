@@ -18,7 +18,7 @@ $m = new PHPMailer;
 
 $m->isSMTP();
 $m->SMTPAuth   = true;
-$m->SMTPDebug  = 2; // gives messages only. 1 gives error codes, too
+$m->SMTPDebug  = 1; // 2 gives messages only. 1 gives error codes, too.
 $m->Host       = 'smtp.gmail.com';
 $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
@@ -64,7 +64,7 @@ if(!$m->Send()){
   echo "Mailer error: " . $m->ErrorInfo;
 
   $host = "smtp.gmail.com";
-  $port = "587";
+  $port = 465;
   $checkconn = fsockopen($host, $port, $errno, $errstr, 5);
   if(!$checkconn){
     echo "($errno) $errstr";
