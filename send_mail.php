@@ -23,7 +23,7 @@ $m->Host       = 'smtp.gmail.com';
 $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
 $m->SMTPSecure = 'ssl';
-$m->Port       = 465;
+$m->Port       = '25';
 $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
@@ -63,14 +63,14 @@ for ($i=0; $i < $num_questions; $i++) {
 if(!$m->Send()){
   echo "Mailer error: " . $m->ErrorInfo;
 
-  $host = "smtp.gmail.com";
-  $port = 465;
-  $checkconn = fsockopen($host, $port, $errno, $errstr, 5);
-  if(!$checkconn){
-    echo "($errno) $errstr";
-  } else {
-    echo 'ok';
-  }
+  // $host = "smtp.gmail.com";
+  // $port = 465;
+  // $checkconn = fsockopen($host, $port, $errno, $errstr, 5);
+  // if(!$checkconn){
+  //   echo "($errno) $errstr";
+  // } else {
+  //   echo 'ok';
+  // }
 
 } else {
   echo "Message sent!";
