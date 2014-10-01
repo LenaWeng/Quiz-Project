@@ -22,8 +22,8 @@ $m->SMTPDebug  = 1; // 2 gives messages only. 1 gives error codes, too.
 $m->Host       = 'smtp.gmail.com';
 $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
-$m->SMTPSecure = 'ssl';
-$m->Port       = '25';
+$m->SMTPSecure = 'tls';
+$m->Port       = 587;
 $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
