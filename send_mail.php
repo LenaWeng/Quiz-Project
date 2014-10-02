@@ -30,7 +30,7 @@ $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
 $m->To         = 'derek.montgomery@perficient.com';
 $m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
-// $m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
+$m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
 // $m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
