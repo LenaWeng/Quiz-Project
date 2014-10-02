@@ -18,12 +18,12 @@ $m = new PHPMailer;
 
 $m->isSMTP();
 $m->SMTPAuth   = true;
-$m->SMTPDebug  = 2; // gives messages only. 1 gives error codes, too
+$m->SMTPDebug  = 1; // 2 gives messages only. 1 gives error codes, too.
 $m->Host       = 'smtp.gmail.com';
 $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
-$m->SMTPSecure = 'ssl';
-$m->Port       = 465;
+$m->SMTPSecure = 'tls';
+$m->Port       = 587;
 $m->IsHTML(true);
 
 $m->From       = 'xdquestionnaire@gmail.com';
@@ -62,6 +62,16 @@ for ($i=0; $i < $num_questions; $i++) {
 // var_dump($m->send());
 if(!$m->Send()){
   echo "Mailer error: " . $m->ErrorInfo;
+
+  // $host = "smtp.gmail.com";
+  // $port = 465;
+  // $checkconn = fsockopen($host, $port, $errno, $errstr, 5);
+  // if(!$checkconn){
+  //   echo "($errno) $errstr";
+  // } else {
+  //   echo 'ok';
+  // }
+
 } else {
   echo "Message sent!";
 }
