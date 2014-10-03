@@ -3,6 +3,7 @@ require_once 'vendor/PHPMailer/PHPMailerAutoload.php';//
 
 // Timer
 session_start();
+set_time_limit(3600);
 $endTime = date("H:i:s");
 $_SESSION['endTime']=$endTime;
 $time1 = strtotime($_SESSION['startTime']);
@@ -22,9 +23,10 @@ $m->SMTPDebug  = 1; // 2 gives messages only. 1 gives error codes, too.
 $m->Host       = 'smtp.gmail.com';
 $m->Username   = 'xdquestionnaire@gmail.com';
 $m->Password   = 'perficientxd';
-$m->SMTPSecure = 'tls';
-$m->Port       = 587;
+$m->SMTPSecure = 'ssl';
+$m->Port       = 465;
 $m->IsHTML(true);
+$m->Timeout = 3600;
 
 $m->From       = 'xdquestionnaire@gmail.com';
 $m->FromName   = 'Derek Montgomery';
