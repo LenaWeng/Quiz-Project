@@ -18,22 +18,24 @@ parse_str(file_get_contents("php://input"), $data);
 $m = new PHPMailer;
 
 $m->isSMTP();
+
 $m->SMTPAuth   = true;
+$m->SMTPSecure = "ssl";
 $m->SMTPDebug  = 1; // 2 gives messages only. 1 gives error codes, too.
-$m->Host       = 'smtp.gmail.com';
-$m->Username   = 'xdquestionnaire@gmail.com';
+$m->Host       = "server501.webhostingpad.com"; // SMTP server
+$m->Username   = 'xdquestionnaire@perficientxd.com';
 $m->Password   = 'perficientxd';
 $m->SMTPSecure = 'ssl';
 $m->Port       = 465;
 $m->IsHTML(true);
-$m->Timeout = 3600;
+$m->Timeout = 10;
 
-$m->From       = 'xdquestionnaire@gmail.com';
-$m->FromName   = 'Derek Montgomery';
+$m->From       = 'xdquestionnaire@perficientxd.com';
+$m->FromName   = 'XD';
 $m->To         = 'derek.montgomery@perficient.com';
-$m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
-$m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
-// $m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
+//$m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
+$m->addAddress('harish2rock@gmail.com', 'Harish Work');
+//$m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
 $m->Body      .= 'Quiz Taker: '.$data['name'].'<br />';
