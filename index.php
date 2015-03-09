@@ -20,6 +20,8 @@ $_SESSION['startTime']=$startTime;
 
   <link rel="stylesheet" href="assets/xd-online-test-project.css">
 
+  <link rel="stylesheet" href="assets/xd-styles.css">
+
   <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
 
   <!-- <script src="assets/config.min.js"></script> -->
