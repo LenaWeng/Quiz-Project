@@ -900,6 +900,28 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
 
   function program11(depth0,data) {
     
+    var buffer = '', stack1;
+    data.buffer.push("\n                                    ");
+    stack1 = helpers['if'].call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(12, program12, data),fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                                ");
+    return buffer;
+    }
+  function program12(depth0,data) {
+    
+    var buffer = '', helper, options;
+    data.buffer.push("\n                                         <div class=\"question-info form-horizontal hidden\" ");
+    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+      'id': ("id")
+    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    data.buffer.push(">\n                                            ");
+    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
+    data.buffer.push("\n                                        </div>\n                                    ");
+    return buffer;
+    }
+
+  function program14(depth0,data) {
+    
     
     data.buffer.push("Submit All Answers ");
     }
@@ -922,15 +944,15 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
     stack1 = helpers.each.call(depth0, "model.html", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n\n                                ");
-    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n\n                                ");
-    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n\n                          \n\n                                    <div class=\"pull-right\">\n                                      ");
     stack1 = helpers.view.call(depth0, "Ember.Submit", {hash:{
       'id': ("submit")
-    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n                                    </div>\n                                </div>\n\n                            </div>\n                        </div>\n\n                    </div>\n            </form>\n        </div>\n    </div>\n</div>\n\n<div id=\"thank-you\" class=\"hidden\">\n    <div class=\"container\">\n        ");
     data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "logo", options) : helperMissing.call(depth0, "partial", "logo", options))));
