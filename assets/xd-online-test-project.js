@@ -7,7 +7,10 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
   var App = Ember['default'].Application.extend({
     modulePrefix: config['default'].modulePrefix,
     podModulePrefix: config['default'].podModulePrefix,
-    Resolver: Resolver['default']
+    Resolver: Resolver['default'],
+    fingerprint: {
+      exclude: ["fonts/"]
+    }
   });
 
   loadInitializers['default'](App, config['default'].modulePrefix);
@@ -32,8 +35,22 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
         submitHandler: function () {
           $("#my-info").slideUp("slow");
           $("#test-questions").slideDown("slow");
-
         }
+      });
+    }
+  });
+
+  Ember['default'].area = Ember['default'].View.extend({
+    didInsertElement: function () {
+      $(document).ready(function () {
+        $("textarea").change(function () {
+          var id = $(this).parent().parent().attr("id");
+          if ($.trim($("#" + id + " textarea").val()).length < 1) {
+            $("." + id).removeClass("green");
+          } else {
+            $("." + id).addClass("green");
+          }
+        });
       });
     }
   });
@@ -54,6 +71,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
           $(this).on("keyup focus show", function () {
             setCount(this, elem);
           });
+
           setCount($(this)[0], elem);
         }
       });
@@ -64,13 +82,21 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
     click: function () {
       // $('.question li a').on('click',function() {
       $(".question li a").removeClass("active");
+      $(".previous").removeAttr("disabled");
       var a = this.elementId;
       var classname = $("#" + a + " > a").attr("class");
       $("." + classname).addClass("active");
-      var b = classname;
+      var b = classname.slice(0, 11);
       $(".question-info").addClass("hidden");
       $("#" + b).removeClass("hidden").find("textarea").focus();
-
+      if (b == "Question-26") {
+        $(".next").attr("disabled", "true");
+        $(".previous").removeAttr("disabled");
+      }
+      if (b == "Question-1") {
+        $(".previous").attr("disabled", "true");
+        $(".next").removeAttr("disabled");
+      }
 
       // });
     }
@@ -93,6 +119,72 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
     }
   });
 
+  Ember['default'].Previous = Ember['default'].View.extend({
+    classNames: ["submit previous"],
+    tagName: "button",
+    didInsertElement: function () {
+      $(".previous").attr("disabled", "true");
+    },
+    click: function () {
+      $("textarea").change(function () {
+        var id = $(this).parent().parent().attr("id");
+        if ($.trim($("#" + id + " textarea").val()).length < 1) {
+          $("." + id).removeClass("green");
+        } else {
+          $("." + id).addClass("green");
+        }
+      });
+
+
+      $(".next").removeAttr("disabled");
+      $(".question-info").each(function () {
+        if (!$(this).hasClass("hidden")) {
+          $(this).addClass("hidden");
+          $(this).prev().removeClass("hidden");
+          var currentId = $(this).attr("id");
+          var prevId = $(this).prev().attr("id");
+          $("." + currentId).removeClass("active");
+          $("." + prevId).addClass("active");
+          if ($(this).prev().attr("id") == "Question-1") {
+            $(".previous").attr("disabled", "true");
+          }
+          return false;
+        }
+      });
+    }
+  });
+
+  Ember['default'].Next = Ember['default'].View.extend({
+    classNames: ["submit next"],
+    tagName: "button",
+    click: function () {
+      $("textarea").change(function () {
+        var id = $(this).parent().parent().attr("id");
+        if ($.trim($("#" + id + " textarea").val()).length < 1) {
+          $("." + id).removeClass("green");
+        } else {
+          $("." + id).addClass("green");
+        }
+      });
+
+      $(".previous").removeAttr("disabled");
+      $(".question-info").each(function () {
+        if (!$(this).hasClass("hidden")) {
+          $(this).addClass("hidden");
+          $(this).next().removeClass("hidden");
+          var currentId = $(this).attr("id");
+          var nextId = $(this).next().attr("id");
+          $("." + currentId).removeClass("active");
+          $("." + nextId).addClass("active");
+          if (nextId == "Question-26") {
+            $(".next").attr("disabled", "true");
+          }
+          return false;
+        }
+      });
+    }
+  });
+
   Ember['default'].View.reopen({
     parentViewDidChange: function () {
       $(document).ready(function () {
@@ -105,6 +197,9 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
             backdrop: true
           });
         });
+
+        //if($('#Question-1 textarea').val()) { $('.Question-1').addClass('answered'); }
+
 
 
         //             $(window).bind('beforeunload',function(){
@@ -135,8 +230,6 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
 
 
         //    //Textarea char limit
-
-
 
 
       });
@@ -209,10 +302,95 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
 
     model: function () {
       return {
-        css: [{
+        html: [{
+          id: "Question-1",
+          question_name: "questions[question_1]",
+          answer_name: "answers[answer_1]",
+          display_name: "HTML5 tag semantics",
+          textarea: "yes",
+          radio: null,
+          textfield: null,
+          options: "",
+          title: "HTML",
+          body: "What is the benefit of using the new HTML5 tag semantics?",
+          answer: ""
+        }, {
+          id: "Question-2",
+          question_name: "questions[question_2]",
+          answer_name: "answers[answer_2]",
+          display_name: "Frameworks",
+          textarea: "yes",
+          radio: null,
+          textfield: null,
+          options: "",
+          title: "HTML",
+          body: "Which HTML/CSS framework do you use (if any) and why (or why not)?",
+          answer: ""
+        }, {
+          id: "Question-3",
+          question_name: "questions[question_3]",
+          answer_name: "answers[answer_3]",
+          display_name: "Widgets",
+          textarea: "yes",
+          textfield: null,
+          radio: null,
+          options: "",
+          title: "HTML",
+          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px area?",
+          answer: ""
+        }, {
+          id: "Question-4",
+          question_name: "questions[question_4]",
+          answer_name: "answers[answer_4]",
+          display_name: "Local Storage",
+          textarea: "yes",
+          textfield: null,
+          radio: null,
+          options: "",
+          title: "HTML",
+          body: "What is the lifetime of local storage?",
+          answer: ""
+        }, {
+          id: "Question-5",
+          question_name: "questions[question_5]",
+          answer_name: "answers[answer_5]",
+          display_name: "IE8 & responsive",
+          textarea: "yes",
+          textfield: null,
+          radio: null,
+          options: "",
+          title: "Design/Performance/UX",
+          body: "How would you deal with a browser that does not support HTML5/CSS3 (such as IE8) handle a responsive web page?",
+          answer: ""
+        }, {
+          id: "Question-6",
+          question_name: "questions[question_6]",
+          answer_name: "answers[answer_6]",
+          display_name: "Input fields",
+          textarea: "yes",
+          textfield: null,
+          radio: null,
+          options: "",
+          title: "HTML",
+          body: "Create an input field that restricts the number of characters inside it to 10.",
+          answer: ""
+        }, {
           id: "Question-7",
           question_name: "questions[question_7]",
           answer_name: "answers[answer_7]",
+          display_name: "Site performance",
+          textarea: "yes",
+          textfield: null,
+          radio: null,
+          options: "",
+          title: "Design/Performance/UX",
+          body: "What are a few ways you can improve a site's performance (load times)?",
+          answer: ""
+        }],
+        css: [{
+          id: "Question-8",
+          question_name: "questions[question_8]",
+          answer_name: "answers[answer_8]",
           display_name: "CSS preprocessor",
           textarea: "yes",
           textfield: null,
@@ -222,9 +400,9 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           body: "Have you used a CSS preprocessor before? Which do you prefer, and why?",
           answer: ""
         }, {
-          id: "Question-8",
-          question_name: "questions[question_8]",
-          answer_name: "answers[answer_8]",
+          id: "Question-9",
+          question_name: "questions[question_9]",
+          answer_name: "answers[answer_9]",
           display_name: "CSS Positioning",
           textarea: "yes",
           textfield: null,
@@ -234,9 +412,9 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           body: "List 3 types of CSS positioning and how they work, and explain the differences.",
           answer: ""
         }, {
-          id: "Question-9",
-          question_name: "questions[question_9]",
-          answer_name: "answers[answer_9]",
+          id: "Question-10",
+          question_name: "questions[question_10]",
+          answer_name: "answers[answer_10]",
           display_name: "Parent child position",
           textarea: "yes",
           textfield: null,
@@ -274,8 +452,8 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           question_name: "questions[question_13]",
           answer_name: "answers[answer_13]",
           display_name: "CSS Selector",
-          textarea: null,
-          textfield: "yes",
+          textarea: "yes",
+          textfield: null,
           radio: null,
           options: "",
           title: "CSS",
@@ -403,9 +581,9 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           body: "Using Javascript find the value of an element that can be used (and reused) to be output to another element.",
           answer: ""
         }, {
-          id: "Question-25",
-          question_name: "questions[question_25]",
-          answer_name: "answers[answer_25]",
+          id: "Question-24",
+          question_name: "questions[question_24]",
+          answer_name: "answers[answer_24]",
           display_name: "Truthy & JavaScript",
           textarea: "yes",
           textfield: null,
@@ -415,21 +593,21 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           body: "Explain the term truthy as it relates to comparisons in JavaScript.",
           answer: ""
         }, {
-          id: "Question-26",
-          question_name: "questions[question_26]",
-          answer_name: "answers[answer_26]",
+          id: "Question-25",
+          question_name: "questions[question_25]",
+          answer_name: "answers[answer_25]",
           display_name: "Console outputs",
-          textarea: null,
-          textfield: "yes",
+          textarea: "yes",
+          textfield: null,
           radio: null,
           options: "",
           title: "JavaScript",
           body: "What will be the output (in the console)  from each of these statements: if(myvar === \"not defined\"){console.log(\"hello\")}, if(myvar == \"not defined\"){console.log(\"hello\")}, if(myvar = \"not defined\"){console.log(\"hello\")}.",
           answer: ""
         }, {
-          id: "Question-27",
-          question_name: "questions[question_27]",
-          answer_name: "answers[answer_27]",
+          id: "Question-26",
+          question_name: "questions[question_26]",
+          answer_name: "answers[answer_26]",
           display_name: "Catch me if you can",
           textarea: "yes",
           textfield: null,
@@ -438,92 +616,8 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           title: "JavaScript",
           body: "Show me a basic JavaScript try catch block that all JavaScript functions should have.",
           answer: ""
-        }],
-        html: [{
-          id: "Question-1",
-          question_name: "questions[question_1]",
-          answer_name: "answers[answer_1]",
-          display_name: "HTML5 tag semantics",
-          textarea: "yes",
-          radio: null,
-          textfield: null,
-          options: "",
-          title: "HTML",
-          body: "What is the benefit of using the new HTML5 tag semantics?",
-          answer: ""
-        }, {
-          id: "Question-2",
-          question_name: "questions[question_2]",
-          answer_name: "answers[answer_2]",
-          display_name: "Frameworks",
-          textarea: "yes",
-          radio: null,
-          textfield: null,
-          options: "",
-          title: "HTML",
-          body: "Which HTML/CSS framework do you use (if any) and why (or why not)?",
-          answer: ""
-        }, {
-          id: "Question-6",
-          question_name: "questions[question_6]",
-          answer_name: "answers[answer_6]",
-          display_name: "Input fields",
-          textarea: "yes",
-          textfield: null,
-          radio: null,
-          options: "",
-          title: "HTML",
-          body: "Create an input field that restricts the number of characters inside it to 10.",
-          answer: ""
-        }, {
-          id: "Question-3",
-          question_name: "questions[question_3]",
-          answer_name: "answers[answer_3]",
-          display_name: "Widgets",
-          textarea: "yes",
-          textfield: null,
-          radio: null,
-          options: "",
-          title: "HTML",
-          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px area?",
-          answer: ""
-        }, {
-          id: "Question-4",
-          question_name: "questions[question_4]",
-          answer_name: "answers[answer_4]",
-          display_name: "Local Storage",
-          textarea: "yes",
-          textfield: null,
-          radio: null,
-          options: "",
-          title: "HTML",
-          body: "What is the lifetime of local storage?",
-          answer: ""
-        }, {
-          id: "Question-28",
-          question_name: "questions[question_28]",
-          answer_name: "answers[answer_28]",
-          display_name: "IE8 & responsive",
-          textarea: "yes",
-          textfield: null,
-          radio: null,
-          options: "",
-          title: "Design/Performance/UX",
-          body: "How would you deal with a browser that does not support HTML5/CSS3 (such as IE8) handle a responsive web page?",
-          answer: ""
-        }, {
-          id: "Question-29",
-          question_name: "questions[question_29]",
-          answer_name: "answers[answer_29]",
-          display_name: "Site performance",
-          textarea: "yes",
-          textfield: null,
-          radio: null,
-          options: "",
-          title: "Design/Performance/UX",
-          body: "What are a few ways you can improve a site's performance (load times)?",
-          answer: ""
         }]
+
       };
 
 
@@ -540,7 +634,8 @@ define('xd-online-test-project/templates/_logo', ['exports', 'ember'], function 
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     
@@ -555,7 +650,8 @@ define('xd-online-test-project/templates/application', ['exports', 'ember'], fun
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', stack1;
@@ -574,7 +670,8 @@ define('xd-online-test-project/templates/component-test', ['exports', 'ember'], 
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     
@@ -589,7 +686,8 @@ define('xd-online-test-project/templates/components/pretty-color', ['exports', '
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', stack1;
@@ -608,7 +706,8 @@ define('xd-online-test-project/templates/components/terms-modal', ['exports', 'e
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     
@@ -623,7 +722,8 @@ define('xd-online-test-project/templates/error', ['exports', 'ember'], function 
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', stack1;
@@ -645,7 +745,8 @@ define('xd-online-test-project/templates/helper-test', ['exports', 'ember'], fun
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -663,7 +764,8 @@ define('xd-online-test-project/templates/index', ['exports', 'ember'], function 
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
@@ -687,7 +789,8 @@ define('xd-online-test-project/templates/loading', ['exports', 'ember'], functio
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     
@@ -702,12 +805,22 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
   function program1(depth0,data) {
+    
+    var buffer = '', stack1;
+    data.buffer.push("\n                ");
+    stack1 = helpers.view.call(depth0, "Ember.area", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                <div class=\"chars\">Characters remaining: <span></span></div>\n            ");
+    return buffer;
+    }
+  function program2(depth0,data) {
     
     var buffer = '', helper, options;
     data.buffer.push("\n                ");
@@ -718,23 +831,23 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
       'class': ("form-control"),
       'data-limit': ("40")
     },hashTypes:{'value': "ID",'name': "ID",'maxlength': "STRING",'class': "STRING",'data-limit': "STRING"},hashContexts:{'value': depth0,'name': depth0,'maxlength': depth0,'class': depth0,'data-limit': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-    data.buffer.push("\n                <div class=\"chars\">Characters remaining: <span></span></div>\n            ");
+    data.buffer.push("\n                ");
     return buffer;
     }
 
-  function program3(depth0,data) {
+  function program4(depth0,data) {
     
     var buffer = '', stack1;
     data.buffer.push("\n                ");
-    stack1 = helpers['if'].call(depth0, "textfield", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+    stack1 = helpers['if'].call(depth0, "textfield", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n                \n                ");
-    stack1 = helpers['if'].call(depth0, "radio", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+    stack1 = helpers['if'].call(depth0, "radio", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n        ");
     return buffer;
     }
-  function program4(depth0,data) {
+  function program5(depth0,data) {
     
     var buffer = '', helper, options;
     data.buffer.push("\n                    ");
@@ -749,7 +862,7 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
     return buffer;
     }
 
-  function program6(depth0,data) {
+  function program7(depth0,data) {
     
     var buffer = '', stack1;
     data.buffer.push("\n                    <div class=\"radio\">\n                        <label>\n                            ");
@@ -817,7 +930,7 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
       'value': ("body")
     },hashTypes:{'type': "STRING",'name': "ID",'value': "ID"},hashContexts:{'type': depth0,'name': depth0,'value': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
     data.buffer.push("\n            ");
-    stack1 = helpers['if'].call(depth0, "textarea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+    stack1 = helpers['if'].call(depth0, "textarea", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n");
     return buffer;
@@ -829,10 +942,11 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
-    var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+    var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
   function program1(depth0,data) {
     
@@ -843,10 +957,10 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
   function program3(depth0,data) {
     
     var buffer = '', stack1;
-    data.buffer.push("\n                                                        <li>\n                                                           \n                                                             ");
+    data.buffer.push("\n                                            <li>\n                                             \n                                             ");
     stack1 = helpers.view.call(depth0, "Ember.Question", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                                          \n                                                        </li>\n                                                       ");
+    data.buffer.push("\n                                             \n                                         </li>\n                                         ");
     return buffer;
     }
   function program4(depth0,data) {
@@ -866,97 +980,137 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
   function program6(depth0,data) {
     
     var buffer = '', stack1;
-    data.buffer.push("\n                                    ");
-    stack1 = helpers['if'].call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n                                        <li>\n                                         \n                                         ");
+    stack1 = helpers.view.call(depth0, "Ember.Question", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                ");
-    return buffer;
-    }
-  function program7(depth0,data) {
-    
-    var buffer = '', helper, options;
-    data.buffer.push("\n                                        <div class=\"question-info hidden\" ");
-    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-      'id': ("id")
-    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
-    data.buffer.push(">\n                                            ");
-    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
-    data.buffer.push("\n                                        </div>\n\n                                    ");
+    data.buffer.push("\n                                         \n                                     </li>\n                                     ");
     return buffer;
     }
 
-  function program9(depth0,data) {
-    
-    var buffer = '', helper, options;
-    data.buffer.push("\n                                         <div class=\"question-info form-horizontal\" ");
-    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-      'id': ("id")
-    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
-    data.buffer.push(">\n                                            ");
-    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
-    data.buffer.push("\n                                        </div>\n                                    ");
-    return buffer;
-    }
-
-  function program11(depth0,data) {
+  function program8(depth0,data) {
     
     var buffer = '', stack1;
-    data.buffer.push("\n                                    ");
-    stack1 = helpers['if'].call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(12, program12, data),fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n                                    <li>\n                                     \n                                     ");
+    stack1 = helpers.view.call(depth0, "Ember.Question", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                ");
-    return buffer;
-    }
-  function program12(depth0,data) {
-    
-    var buffer = '', helper, options;
-    data.buffer.push("\n                                         <div class=\"question-info form-horizontal hidden\" ");
-    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-      'id': ("id")
-    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
-    data.buffer.push(">\n                                            ");
-    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
-    data.buffer.push("\n                                        </div>\n                                    ");
+    data.buffer.push("\n                                     \n                                 </li>\n                                 ");
     return buffer;
     }
 
-  function program14(depth0,data) {
+  function program10(depth0,data) {
+    
+    var buffer = '', stack1;
+    data.buffer.push("\n                ");
+    stack1 = helpers['if'].call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                ");
+    return buffer;
+    }
+  function program11(depth0,data) {
+    
+    var buffer = '', helper, options;
+    data.buffer.push("\n                <div class=\"question-info hidden\" ");
+    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+      'id': ("id")
+    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    data.buffer.push(">\n                    ");
+    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
+    data.buffer.push("\n                </div>\n\n                ");
+    return buffer;
+    }
+
+  function program13(depth0,data) {
+    
+    var buffer = '', helper, options;
+    data.buffer.push("\n                <div class=\"question-info form-horizontal\" ");
+    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+      'id': ("id")
+    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    data.buffer.push(">\n                    ");
+    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
+    data.buffer.push("\n                </div>\n                ");
+    return buffer;
+    }
+
+  function program15(depth0,data) {
+    
+    var buffer = '', stack1;
+    data.buffer.push("\n                ");
+    stack1 = helpers['if'].call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(16, program16, data),fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                ");
+    return buffer;
+    }
+  function program16(depth0,data) {
+    
+    var buffer = '', helper, options;
+    data.buffer.push("\n                <div class=\"question-info form-horizontal hidden\" ");
+    data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+      'id': ("id")
+    },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    data.buffer.push(">\n                    ");
+    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "question", options) : helperMissing.call(depth0, "partial", "question", options))));
+    data.buffer.push("\n                </div>\n                ");
+    return buffer;
+    }
+
+  function program18(depth0,data) {
+    
+    
+    data.buffer.push("   Previous");
+    }
+
+  function program20(depth0,data) {
+    
+    
+    data.buffer.push(" Next");
+    }
+
+  function program22(depth0,data) {
     
     
     data.buffer.push("Submit All Answers ");
     }
 
-    data.buffer.push("<div class=\"row\">\n    <div class=\"col-md-12 col-sm-12 col-xs-12\">\n        <div id=\"question-page\">\n            <form id=\"questionnaire_form\" role=\"form\">\n                    <div id=\"my-info\">\n                        <div class=\"container\">\n                            <div class=\"row\">\n                                <div class=\"col-xs-12 text-center\">\n                                    <h4>Please enter the below information</h4>\n                                </div>\n                            </div>\n                            <div class=\"row\">\n                                <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                                    <input type=\"text\" placeholder=\"Your Name\" id=\"name\" name=\"name\" class=\"ember-view ember-text-field form-control error\" data-rule-required=\"true\" data-rule-alpha=\"true\" data-msg-required=\"Please enter a valid name\">\n                              </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                                <input type=\"email\" placeholder=\"Your Email Address\" id=\"email\" name=\"email\" class=\"ember-view ember-text-field form-control\" data-rule-required=\"true\" data-msg-required=\"Please enter a valid email address\" data-rule-email=\"true\">\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                               \n                               ");
+    data.buffer.push("<div class=\"row\">\n    <div class=\"col-md-12 col-sm-12 col-xs-12\">\n        <div id=\"question-page\">\n            <form id=\"questionnaire_form\" role=\"form\">\n                <div id=\"my-info\">\n                    <div class=\"container\">\n                        <div class=\"row\">\n                            <div class=\"col-xs-12 text-center\">\n                                <h4>Please enter the below information</h4>\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                                <input type=\"text\" placeholder=\"Your Name\" id=\"name\" name=\"name\" class=\"ember-view ember-text-field form-control error\" data-rule-required=\"true\" data-rule-alpha=\"true\" data-msg-required=\"Please enter a valid name\">\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                                <input type=\"email\" placeholder=\"Your Email Address\" id=\"email\" name=\"email\" class=\"ember-view ember-text-field form-control\" data-rule-required=\"true\" data-msg-required=\"Please enter a valid email address\" data-rule-email=\"true\">\n                            </div>\n                        </div>\n                        <div class=\"row\">\n                            <div class=\"form-group col-xs-offset-4 col-xs-4\">\n                             \n                             ");
     stack1 = helpers.view.call(depth0, "Ember.BeginTest", {hash:{
       'id': ("begin-my-test")
     },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                            </div>\n                        </div>\n                    </div>\n                    </div>\n\n                    <div id=\"test-questions\">\n                        <div class=\"container\">\n                            <div class=\"row\">\n                                <div class=\"col-xs-3 col-md-3 leftcol nopad\">\n                                    <div class='questions-title'>Questions</div>\n                                    <nav>\n                                        <div class=\"navbar\">\n                                            <div class=\"navbar-inner\">\n                                                <h4 class=\"category\">HTML5</h4>\n                                                <ol class=\"question\">\n                                                    ");
+    data.buffer.push("\n                         </div>\n                     </div>\n                 </div>\n             </div>\n\n             <div id=\"test-questions\">\n                <div class=\"container\">\n                    <div class=\"row\">\n                        <div class=\"col-xs-3 col-md-3 leftcol nopad\">\n                            <div class='questions-title'>Questions</div>\n                            <nav>\n                                <div class=\"navbar\">\n                                    <div class=\"navbar-inner\">\n                                        <h4 class=\"category\">HTML5</h4>\n                                        <ol class=\"question\">\n                                            ");
     stack1 = helpers.each.call(depth0, "model.html", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                                </ol>\n \n                                                <h4 class=\"category\">CSS</h4>\n                                                <ol class=\"question\">\n                                                    ");
-    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n                                     </ol>\n\n                                     <h4 class=\"category\">CSS</h4>\n                                     <ol class=\"question\">\n                                        ");
+    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                                </ol>\n                                               <h4 class=\"category\">JS</h4>\n                                                <ol class=\"question\">\n                                                    ");
-    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n                                 </ol>\n                                 <h4 class=\"category\">JS</h4>\n                                 <ol class=\"question\">\n                                    ");
+    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                                </ol>\n                                            </div>\n                                        </div>\n                                    </nav>\n\n                                </div>\n                                <div class=\"col-xs-9 col-md-9\">\n\n                                ");
-    stack1 = helpers.each.call(depth0, "model.html", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n                             </ol>\n                         </div>\n                     </div>\n                 </nav>\n\n             </div>\n             <div class=\"col-xs-9 col-md-9\">\n\n                ");
+    stack1 = helpers.each.call(depth0, "model.html", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(10, program10, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n\n                                ");
-    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n\n                ");
+    stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n\n                                ");
-    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
+    data.buffer.push("\n\n                ");
+    stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n\n                          \n\n                                    <div class=\"pull-right\">\n                                      ");
+    data.buffer.push("\n\n                <div class=\"row\">\n                    <div class=\"col-sm-3\">\n                    ");
+    stack1 = helpers.view.call(depth0, "Ember.Previous", {hash:{
+      'id': ("previous")
+    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                  </div>\n\n                  <div class=\"col-sm-3\">\n                      ");
+    stack1 = helpers.view.call(depth0, "Ember.Next", {hash:{
+      'id': ("next")
+    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(20, program20, data),contexts:[depth0],types:["ID"],data:data});
+    if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+    data.buffer.push("\n                  </div>\n              </div>\n\n              <div class=\"pull-right\">\n                  ");
     stack1 = helpers.view.call(depth0, "Ember.Submit", {hash:{
       'id': ("submit")
-    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
+    },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(22, program22, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n                                    </div>\n                                </div>\n\n                            </div>\n                        </div>\n\n                    </div>\n            </form>\n        </div>\n    </div>\n</div>\n\n<div id=\"thank-you\" class=\"hidden\">\n    <div class=\"container\">\n        ");
-    data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "logo", options) : helperMissing.call(depth0, "partial", "logo", options))));
-    data.buffer.push("\n        <div class=\"alert alert-success\" role=\"alert\">\n          Thank you! Your answers have been successfully submitted. We will review and get back to you.\n        </div>\n    </div>\n</div>\n");
+    data.buffer.push("\n              </div>\n          </div>\n\n      </div>\n  </div>\n\n</div>\n</form>\n</div>\n<div id=\"thank-you\" class=\"hidden\">\n   <div class=\"container\">\n    <div class=\"alert alert-success\" role=\"alert\">\n        Thank you! Your answers have been successfully submitted. We will review and get back to you.\n    </div>\n</div>\n</div>\n</div>\n</div>\n\n\n");
     return buffer;
     
   });
@@ -966,7 +1120,8 @@ define('xd-online-test-project/templates/thank-you', ['exports', 'ember'], funct
 
   'use strict';
 
-  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+  exports['default'] = Ember['default'].Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data
+  /**/) {
   this.compilerInfo = [4,'>= 1.0.0'];
   helpers = this.merge(helpers, Ember['default'].Handlebars.helpers); data = data || {};
     var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
