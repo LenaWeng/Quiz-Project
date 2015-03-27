@@ -32,10 +32,12 @@ $m->Timeout = 10;
 
 $m->From       = 'xdquestionnaire@perficientxd.com';
 $m->FromName   = 'XD';
-$m->To         = 'derek.montgomery@perficient.com';
+$m->To         = 'harish.bhavanichikar@perficient.com';
 //$m->addAddress('derek.montgomery@perficient.com', 'Derek Work');
-$m->addAddress('harish2rock@gmail.com', 'Harish Work');
-//$m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
+$m->addAddress('harish.bhavanichikar@perficient.com', 'Harish Work');
+$m->addAddress('martin.ridgway@perficient.com', 'Martin Work');
+$m->addAddress('jennifer.siegfried@perficient.com', 'Jennifer Work');
+$m->addAddress('jacob.schulke@perficient.com', 'Jacob Work');
 $m->Subject    = 'XD Questionnaire Answers';
 $m->Body       = '';
 $m->Body      .= 'Quiz Taker: '.$data['name'].'<br />';

@@ -20,8 +20,6 @@ $_SESSION['startTime']=$startTime;
 
   <link rel="stylesheet" href="assets/xd-online-test-project.css">
 
-  <link rel="stylesheet" href="assets/xd-styles.css">
-
   <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
 
   <!-- <script src="assets/config.min.js"></script> -->
@@ -29,8 +27,8 @@ $_SESSION['startTime']=$startTime;
 
  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/additional-methods.js"></script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/additional-methods.js"></script> -->
 
 </head>
 <body>
@@ -48,17 +46,7 @@ $_SESSION['startTime']=$startTime;
     window.App = require('appkit/app')['default'].create(ENV.APP);
   </script> -->
 
-      <header>
-        <div class="container">
-          <div class="col-md-3">
-             <div class="logo">
-                <img src="assets/logo-white.png" alt="Perficient XD" >
-            </div>
-          </div>
-          <div class="col-md-8"></div>
-        </div>
-         
-      </header>
+     <div id="main-content" class="container-fluid"></div>
     
        <script src="assets/vendor.js"></script>
 
