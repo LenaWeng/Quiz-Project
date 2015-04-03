@@ -60,7 +60,7 @@ for ($i=0; $i < $num_questions; $i++) {
   $m->Body .= $data['questions']['question_'.($i+1)];
   $m->Body .= '<br />';
   $m->Body .= '<b>Answer:</b> ';
-  $m->Body .= $data['answers']['answer_'.($i+1)];
+  $m->Body .= htmlspecialchars($data['answers']['answer_'.($i+1)]);
   $m->Body .= '<br /><br />';
 }
 

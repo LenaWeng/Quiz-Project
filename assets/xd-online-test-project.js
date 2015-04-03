@@ -132,7 +132,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
   });
 
   Ember['default'].Previous = Ember['default'].View.extend({
-    classNames: ["submit previous btn btn-primary"],
+    classNames: ["submit previous btn btn-secondary"],
     tagName: "button",
     didInsertElement: function () {
       $(".previous").attr("disabled", "true");
@@ -167,7 +167,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
   });
 
   Ember['default'].Next = Ember['default'].View.extend({
-    classNames: ["submit next btn btn-primary"],
+    classNames: ["submit next btn btn-secondary"],
     tagName: "button",
     click: function () {
       //if($('.Question-1').hasClass('active')) {
@@ -352,7 +352,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "HTML",
-          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px area?",
+          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px wide area?",
           answer: ""
         }, {
           id: "Question-4",
@@ -376,7 +376,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "Design/Performance/UX",
-          body: "How would you deal with a browser that does not support media queries (such as IE8) when building a responsive web design?",
+          body: "When building a responsive website, how would you deal with a browser that does not support media queries (such as IE8)?",
           answer: ""
         }, {
           id: "Question-6",
@@ -388,7 +388,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "HTML",
-          body: "Create an input field that restricts the number of characters inside it to 10.",
+          body: "What HTML/CSS would create an input field that restricts the number of characters inside it to 10?",
           answer: ""
         }, {
           id: "Question-7",
@@ -425,7 +425,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "List 3 types of CSS positioning and how they work, and explain the differences.",
+          body: "List 3 types of CSS positioning, explain how they work, and explain the differences between them.",
           answer: ""
         }, {
           id: "Question-10",
@@ -437,7 +437,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "You would like a container <div> that's of fluid width, and to nest another <div> inside that has: a) padding; b) 100% width (edge-to-edge within the container). What is the issue and how is it typically resolved?",
+          body: "You would like a container <div> that's of fluid width, with another <div> nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
           answer: ""
         }, {
           id: "Question-11",
@@ -461,7 +461,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "When using media queries that are defined by variables using Sass ($width-small: 400px;), what is the solution for increasing the breakpoint by one value?",
+          body: "When using media queries that are defined by variables using Sass ($width-small: 400px), what is the solution for increasing the breakpoint by one value?",
           answer: ""
         }, {
           id: "Question-13",
@@ -521,7 +521,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "How would you handle the business requirements to a) support versions of Internet Explorer down to IE8, and b) use features that Internet Explorer 8 does not support (gradients, rounded corners, transitions, etc)?",
+          body: "How would you handle the business requirements to a) support versions of Internet Explorer down to IE8, and b) use features that IE8 does not support (gradients, rounded corners, transitions, etc)?",
           answer: ""
         }, {
           id: "Question-18",
@@ -618,7 +618,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "JavaScript",
-          body: "What will the output be (in the console) from each of these statements: if(myvar === \"not defined\"){console.log(\"hello\")}, if(myvar == \"not defined\"){console.log(\"hello\")}, if(myvar = \"not defined\"){console.log(\"hello\")}.",
+          body: "What will the output be (in the console) from each of these statements: if(myvar === \"not defined\"){console.log(\"hello\")}\n\n if(myvar == \"not defined\"){console.log(\"hello\")}\n\n if(myvar = \"not defined\"){console.log(\"hello\")}.",
           answer: ""
         }, {
           id: "Question-26",
@@ -688,7 +688,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "HTML",
-          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px area?",
+          body: "How would you create a widget that would fit in a 250px wide area as well as a 400px wide area?",
           answer: ""
         }, {
           id: "Question-4",
@@ -712,7 +712,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "Design/Performance/UX",
-          body: "How would you deal with a browser that does not support HTML5/CSS3 (such as IE8) when building a responsive web design?",
+          body: "When building a responsive website, how would you deal with a browser that does not support media queries (such as IE8)?",
           answer: ""
         }, {
           id: "Question-6",
@@ -724,7 +724,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "HTML",
-          body: "Create an input field that restricts the number of characters inside it to 10.",
+          body: "What HTML/CSS would create an input field that restricts the number of characters inside it to 10?",
           answer: ""
         }, {
           id: "Question-7",
@@ -761,7 +761,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "CSS",
-          body: "List 3 types of CSS positioning and how they work, and explain the differences.",
+          body: "List 3 types of CSS positioning, explain how they work, and explain the differences between them.",
           answer: ""
         }, {
           id: "Question-10",
@@ -773,7 +773,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "CSS",
-          body: "You would like a container <div> that's of fluid width, and to nest another <div> inside that has: a) padding; b) 100% width (edge-to-edge within the container). What is the issue and how is it typically resolved?",
+          body: "You would like a container <div> that's of fluid width, with another <div> nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
           answer: ""
         }, {
           id: "Question-11",
@@ -797,7 +797,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "CSS",
-          body: "When using media queries that are defined by variables using Sass ($width-small: 400px;), what is the solution for increasing the breakpoint by one value?",
+          body: "When using media queries that are defined by variables using Sass ($width-small: 400px), what is the solution for increasing the breakpoint by one value?",
           answer: ""
         }, {
           id: "Question-13",
@@ -857,7 +857,7 @@ define('xd-online-test-project/routes/questions', ['exports', 'ember'], function
           radio: null,
           options: "",
           title: "CSS",
-          body: "How would you handle the business requirements to a) support versions of Internet Explorer down to IE8, and b) use features that Internet Explorer 8 does not support (gradients, rounded corners, transitions, etc)?",
+          body: "How would you handle the business requirements to a) support versions of Internet Explorer down to IE8, and b) use features that IE8 does not support (gradients, rounded corners, transitions, etc)?",
           answer: ""
         }, {
           id: "Question-18",
@@ -1281,7 +1281,7 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
     data.buffer.push("         <div class=\"row welcome-text\">\n                <div class=\"col-xs-12\">\n                    <span class=\"visible-xs-inline\">");
     stack1 = helpers._triageMustache.call(depth0, "id", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("/26</span>\n                    <h3>");
+    data.buffer.push(" of 26</span>\n                    <h3>");
     stack1 = helpers._triageMustache.call(depth0, "display_name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push(":</h3>\n                    <p>");
@@ -1416,7 +1416,7 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
     return buffer;
     }
 
-    data.buffer.push("\n<div class=\"wrap\">\n	<div class=\"main\">\n	  <div class=\"row\">\n		  <div class=\"col-xs-12\">\n			  <div id=\"question-page\">\n				  <form id=\"questionnaire_form\" role=\"form\">\n					  <div id=\"my-info\">\n					  	<div class=\"row\">\n                         <div class=\"welcome-text text-center\">\n                            <!--<img src=\"assets/logo.png\" alt=\"Perficient XD\"/>-->\n                            <h3>Skills Assessment Test</h3>\n                  \n                            </div>\n					  		<div class=\"col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6\">\n					  			<p>This is a skills assessment. It is the first step in the process of interviewing for a UI Development position with PerficientXD. What follows is a list of questions in the categories of HTML, CSS, and JavaScript. Answer as many as you can honestly, to the best of your ability and do not look over the internet for solutions. We will review your assessment and get back with you.</p>\n							</div>\n					  	</div>\n						<div class=\"row\">\n							<fieldset class=\"col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6\">\n								<legend>Please Enter Your Information</legend>\n\n								<div class=\"form-group\">\n									<input type=\"text\" placeholder=\"Your Name\" id=\"name\" name=\"name\" class=\"ember-view ember-text-field form-control error\" data-rule-required=\"true\" data-rule-alpha=\"true\" data-msg-required=\"Please enter a valid name\">\n								</div>\n								<div class=\"form-group\">\n									<input type=\"email\" placeholder=\"Your Email Address\" id=\"email\" name=\"email\" class=\"ember-view ember-text-field form-control\" data-rule-required=\"true\" data-msg-required=\"Please enter a valid email address\" data-rule-email=\"true\">\n								</div>\n                            \n								<div class=\"form-group\">\n									\n									");
+    data.buffer.push("\n<div class=\"wrap\">\n	<div class=\"main\">\n	  <div class=\"row\">\n		  <div class=\"col-xs-12\">\n			  <div id=\"question-page\">\n				  <form id=\"questionnaire_form\" role=\"form\">\n					  <div id=\"my-info\">\n					  	<div class=\"row\">\n					  		<div class=\"col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6\">\n					  			<h2>Skills Assessment Test</h2>\n					  			<p>This is a skills assessment test. It is the first step in the process of interviewing for a UI Development position with PerficientXD. What follows is a list of questions in the categories of HTML, CSS, and JavaScript.</p>\n					  			<p>Answer as many as you can, honestly, and to the best of your ability, and do not look on the internet for solutions. We will review your assessment and get back with you.</p>\n							</div>\n					  	</div>\n						<div class=\"row\">\n							<fieldset class=\"col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6\">\n								<legend>Please Enter Your Information</legend>\n\n								<div class=\"form-group\">\n									<input type=\"text\" placeholder=\"Your Name\" id=\"name\" name=\"name\" class=\"ember-view ember-text-field form-control error\" data-rule-required=\"true\" data-rule-alpha=\"true\" data-msg-required=\"Please enter a valid name\">\n								</div>\n								<div class=\"form-group\">\n									<input type=\"email\" placeholder=\"Your Email Address\" id=\"email\" name=\"email\" class=\"ember-view ember-text-field form-control\" data-rule-required=\"true\" data-msg-required=\"Please enter a valid email address\" data-rule-email=\"true\">\n								</div>\n                            \n								<div class=\"form-group\">\n									\n									");
     stack1 = helpers.view.call(depth0, "Ember.BeginTest", {hash:{
       'id': ("begin-my-test")
     },hashTypes:{'id': "STRING"},hashContexts:{'id': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
@@ -1451,7 +1451,7 @@ define('xd-online-test-project/templates/questions', ['exports', 'ember'], funct
     data.buffer.push("\n										  </ol>\n\n										  <h4 class=\"category\">CSS</h4>\n										  <ol class=\"question\">\n										  ");
     stack1 = helpers.each.call(depth0, "model.css", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-    data.buffer.push("\n										  </ol>\n\n										  <h4 class=\"category\">JS</h4>\n										  <ol class=\"question\">\n										  ");
+    data.buffer.push("\n										  </ol>\n\n										  <h4 class=\"category\">JavaScript</h4>\n										  <ol class=\"question\">\n										  ");
     stack1 = helpers.each.call(depth0, "model.js", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0],types:["ID"],data:data});
     if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
     data.buffer.push("\n										  </ol>\n									  </div>\n									</div>\n								  </nav>\n							  </div>\n\n						  </div>\n\n					  </div>\n				  </form>\n			  </div>\n			  <div id=\"thank-you\" class=\"hidden\">\n				  <div class=\"alert alert-success\" role=\"alert\">\n					  Thank you! Your answers have been successfully submitted. We will review and get back to you.\n				  </div>\n			  </div>\n		  </div>\n		</div>\n	</div>\n</div>\n\n\n");
