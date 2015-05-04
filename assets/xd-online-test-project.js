@@ -437,7 +437,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "You would like a container <div> that's of fluid width, with another <div> nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
+          body: "You would like a container that\'s of fluid width, with another nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
           answer: ""
         }, {
           id: "Question-11",
@@ -558,7 +558,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "JavaScript",
-          body: "What's your experience with object-oriented JavaScript?",
+          body: "What\'s your experience with object-oriented JavaScript?",
           answer: ""
         }, {
           id: "Question-21",
