@@ -79,6 +79,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
 
           $("textarea").on("keyup focus show", function () {
             setCount(this, elem);
+            //$(this).parent().next('.chars').removeClass('hidden');
           });
 
           setCount($(this)[0], elem);
@@ -138,6 +139,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
       $(".previous").attr("disabled", "true");
     },
     click: function () {
+      //$('textarea').focus(); 
       $("textarea").change(function () {
         var id = $(this).parent().parent().attr("id");
         if ($.trim($("#" + id + " textarea").val()).length < 1) {
@@ -152,7 +154,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
       $(".question-info").each(function () {
         if (!$(this).hasClass("hidden")) {
           $(this).addClass("hidden");
-          $(this).prev().removeClass("hidden");
+          $(this).prev().removeClass("hidden").find("textarea").focus();;
           var currentId = $(this).attr("id");
           var prevId = $(this).prev().attr("id");
           $("." + currentId).removeClass("active");
@@ -170,6 +172,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
     classNames: ["submit next btn btn-secondary"],
     tagName: "button",
     click: function () {
+      //$('textarea').focus();
       //if($('.Question-1').hasClass('active')) {
       $(".Question-1").removeClass("active");
       //}
@@ -186,7 +189,7 @@ define('xd-online-test-project/app', ['exports', 'ember', 'xd-online-test-projec
       $(".question-info").each(function () {
         if (!$(this).hasClass("hidden")) {
           $(this).addClass("hidden");
-          $(this).next().removeClass("hidden");
+          $(this).next().removeClass("hidden").find("textarea").focus();;
           var currentId = $(this).attr("id");
           var nextId = $(this).next().attr("id");
           $("." + currentId).removeClass("active");
@@ -437,7 +440,7 @@ define('xd-online-test-project/routes/index', ['exports', 'ember'], function (ex
           radio: null,
           options: "",
           title: "CSS",
-          body: "You would like a container <div> that's of fluid width, with another <div> nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
+          body: "You would like a container '<div>' that's of fluid width, with another '<div>' nested inside it that has: a) padding, and b) 100% width (edge-to-edge within the container). What is the issue with this, and how is it typically resolved?",
           answer: ""
         }, {
           id: "Question-11",
@@ -1188,10 +1191,8 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
     data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
       'value': ("answer"),
       'name': ("answer_name"),
-      'maxlength': ("140"),
-      'class': ("form-control"),
-      'data-limit': ("40")
-    },hashTypes:{'value': "ID",'name': "ID",'maxlength': "STRING",'class': "STRING",'data-limit': "STRING"},hashContexts:{'value': depth0,'name': depth0,'maxlength': depth0,'class': depth0,'data-limit': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+      'class': ("form-control")
+    },hashTypes:{'value': "ID",'name': "ID",'class': "STRING"},hashContexts:{'value': depth0,'name': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
     data.buffer.push("\n                ");
     return buffer;
     }
@@ -1216,9 +1217,8 @@ define('xd-online-test-project/templates/question', ['exports', 'ember'], functi
       'type': ("text"),
       'name': ("answer_name"),
       'value': ("answer"),
-      'class': ("form-control"),
-      'maxlength': ("100")
-    },hashTypes:{'type': "STRING",'name': "ID",'value': "ID",'class': "STRING",'maxlength': "STRING"},hashContexts:{'type': depth0,'name': depth0,'value': depth0,'class': depth0,'maxlength': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+      'class': ("form-control")
+    },hashTypes:{'type': "STRING",'name': "ID",'value': "ID",'class': "STRING"},hashContexts:{'type': depth0,'name': depth0,'value': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
     data.buffer.push("\n                    <div class=\"chars\">Characters remaining: <span></span></div>\n                ");
     return buffer;
     }
